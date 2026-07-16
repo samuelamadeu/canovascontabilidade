@@ -99,26 +99,35 @@
 
         /* Seção Hero (Apresentação Principal) */
         .hero {
-            background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.95)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1920') no-repeat center center/cover;
-            height: 100vh;
+            background: linear-gradient(rgba(10, 25, 47, 0.95), rgba(10, 25, 47, 0.98)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1920') no-repeat center center/cover;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
             color: var(--text-light);
-            padding: 0 20px;
+            padding: 120px 20px 60px 20px;
             margin-top: 80px;
         }
 
+        .hero-container {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr; /* Divisão: Texto maior à esquerda, Foto à direita */
+            gap: 50px;
+            align-items: center;
+        }
+
         .hero-content {
-            max-width: 800px;
+            text-align: left;
         }
 
         .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 3.2rem;
             margin-bottom: 20px;
             letter-spacing: 1px;
+            line-height: 1.2;
         }
 
         .hero h1 span {
@@ -126,9 +135,46 @@
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             margin-bottom: 40px;
             color: #a8b2d1;
+        }
+
+        /* Container da foto na Hero - CORRIGIDO */
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 350px; /* Largura fixa para casar com a moldura */
+            height: 450px; /* Altura fixa para casar com a moldura */
+            margin: 0 auto;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Força a foto a preencher todo o espaço sem distorcer */
+            object-position: center; /* Mantém o foco no centro da imagem */
+            border-radius: 8px;
+            border: 3px solid var(--accent);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Moldura elegante atrás da foto - CORRIGIDA */
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            top: 15px;
+            left: 15px;
+            z-index: 1;
+            pointer-events: none;
         }
 
         .btn-cta {
@@ -141,6 +187,7 @@
             font-size: 1rem;
             box-shadow: 0 4px 15px rgba(197, 168, 128, 0.3);
             transition: transform 0.3s, background 0.3s;
+            display: inline-block;
         }
 
         .btn-cta:hover {
@@ -410,7 +457,17 @@
             color: #8892b0;
         }
 
-        /* Responsividade Básica */
+        /* Responsividade Ajustada */
+        @media (max-width: 992px) {
+            .hero-container {
+                grid-template-columns: 1.1fr 0.9fr;
+                gap: 30px;
+            }
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .navbar {
                 flex-direction: column;
@@ -419,9 +476,34 @@
             .nav-links {
                 gap: 15px;
                 font-size: 0.85rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero {
+                padding-top: 140px; /* Mais espaço para o menu colapsado */
+            }
+            .hero-container {
+                grid-template-columns: 1fr; /* Muda para apenas 1 coluna no celular */
+                text-align: center;
+                gap: 50px;
+            }
+            .hero-content {
+                text-align: center;
             }
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+            .hero-image {
+                width: 280px; /* Reduz a largura do container no mobile */
+                height: 360px; /* Reduz a altura do container no mobile */
+            }
+            .hero-image img {
+                width: 100%;
+                height: 100%;
+            }
+            .hero-image::after {
+                top: 10px;
+                left: 10px;
             }
             .about {
                 grid-template-columns: 1fr;
@@ -449,10 +531,16 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Laura Santos Canovas</h1>
-            <p>Especialista em <span>Contabilidade Fiscal e Planejamento Tributário Estratégico</span>. Protegemos sua margem de lucro e garantimos total conformidade legal para o seu negócio.</p>
-            <a href="#contato" class="btn-cta">Agendar Consulta Diagnóstica</a>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Laura Santos Canovas</h1>
+                <p>Especialista em <span>Contabilidade Fiscal e Planejamento Tributário Estratégico</span>. Protegemos sua margem de lucro e garantimos total conformidade legal para o seu negócio.</p>
+                <a href="#contato" class="btn-cta">Agendar Consulta Diagnóstica</a>
+            </div>
+            <div class="hero-image">
+                <!-- Foto com o CSS de enquadramento corrigido -->
+                <img src="/IMAGES/laura.jpg" alt="Laura Santos Canovas">
+            </div>
         </div>
     </section>
 
